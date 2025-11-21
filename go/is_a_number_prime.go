@@ -11,7 +11,7 @@ func IsPrime(n int) bool {
   
   m := int(math.Sqrt(float64(n)))
   
-  for i := 2; i < m + 1; i++ {
+  for i := 2; i <= m; i++ {
     if n % i == 0 {
       return false
     }
