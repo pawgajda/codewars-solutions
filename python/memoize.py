@@ -51,3 +51,35 @@ def fib(n):
         return n
     else:
         return fib(n - 1) + fib(n - 2)
+#
+# attempt #3:
+from preloaded import count_calls
+
+
+def memoize(func):
+    cache = {}
+    
+    # accept any number of arguments and keyword arguments
+    def wrapper(*args, **kwargs):
+        # generate key from arguments and keyword arguments
+        # key has to be hashable and tuples are hashable
+        key = (args, tuple(sorted(kwargs.items())))
+
+        if key not in cache:
+            cache[key] = func(*args, **kwargs)
+        return cache[key]
+
+    # preserve function name and doc
+    wrapper.__name__ = func.__name__
+    wrapper.__doc__ = func.__doc__
+
+    return wrapper
+
+
+@memoize
+def fib(n):
+    """Computes the nth number in the Fibonacci sequence"""
+    if n < 2:
+        return n
+    else:
+        return fib(n - 1) + fib(n - 2)
